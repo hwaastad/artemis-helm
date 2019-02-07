@@ -14,7 +14,6 @@ spec:
     matchLabels:
       app: {{ template "artemis-helm.name" . }}
       release: {{ .Release.Name | quote }}
-      component: master
   template:
     metadata:
       name: {{ include "artemis-helm.fullname" . }}
@@ -30,6 +29,10 @@ spec:
         image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
+        command:
+        - echo
+        - Dooo
+        - stuff...
       containers:
       - name: {{ include "artemis-helm.fullname" . }}
         image: {{ template "artemis-helm.image" . }}
