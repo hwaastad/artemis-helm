@@ -19,14 +19,13 @@ spec:
   template:
     metadata:
       annotations:
-        cattle.io/timestamp: 2019-02-07T12:11:27Z
-      creationTimestamp: null
+{{ toYaml .Values.replica.annotations | indent 8 }}
       labels:
         app: {{ template "artemis-helm.name" . }}
         release: {{ .Release.Name | quote }}
     spec:
       containers:
-      - image: docker.io/alpine:3.9
+      - image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         name: artemis-helm
         resources: {}
@@ -46,7 +45,7 @@ spec:
         - the
         - Init
         - Container.....
-        image: docker.io/alpine:3.9
+        image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
