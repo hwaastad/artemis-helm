@@ -1,13 +1,12 @@
 apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
+  name: {{ include "artemis-helm.fullname" . }}
   annotations:
-    field.cattle.io/creatorId: user-rcwwb
+    {{ toYaml .Values.deployment.annotations | indent 4 }}
   creationTimestamp: 2019-02-07T12:10:46Z
-  generation: 2
   labels:
-    cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+    {{ include "artemis-helm.labels.standard" . | indent 4 }}
   name: artemis-helm
   namespace: artemis-helm
 spec:
@@ -16,18 +15,20 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+      app: {{ template "artemis-helm.name" . }}
+      release: {{ .Release.Name | quote }}
   serviceName: artemis-helm
   template:
     metadata:
+      name: {{ include "artemis-helm.fullname" . }}
       annotations:
-        cattle.io/timestamp: 2019-02-07T12:11:27Z
-      creationTimestamp: null
+{{ toYaml .Values.replica.annotations | indent 8 }}
       labels:
-        workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+        app: {{ template "artemis-helm.name" . }}
+        release: {{ .Release.Name | quote }}
     spec:
       containers:
-      - image: docker.io/alpine:3.9
+      - image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         name: artemis-helm
         resources: {}
@@ -47,7 +48,7 @@ spec:
         - the
         - Init
         - Container.....
-        image: docker.io/alpine:3.9
+        image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
