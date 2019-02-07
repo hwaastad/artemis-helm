@@ -1,49 +1,75 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
-  name: {{ include "artemis-helm.fullname" . }}
   annotations:
-{{ toYaml .Values.deployment.annotations | indent 4 }}
+    field.cattle.io/creatorId: user-rcwwb
+  creationTimestamp: 2019-02-07T12:10:46Z
+  generation: 2
   labels:
-{{ include "artemis-helm.labels.standard" . | indent 4 }}
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+  name: artemis-helm
+  namespace: artemis-helm
+  resourceVersion: "5805475"
+  selfLink: /apis/apps/v1beta2/namespaces/artemis-helm/statefulsets/artemis-helm
+  uid: 6669ce98-2ad1-11e9-9616-00505698590a
 spec:
-  serviceName: {{ include "artemis-helm.fullname" . }}
-  replicas: {{ .Values.replicas }}
+  podManagementPolicy: OrderedReady
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: {{ template "artemis-helm.name" . }}
-      release: {{ .Release.Name | quote }}
+      workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+  serviceName: artemis-helm
   template:
     metadata:
-      name: {{ include "artemis-helm.fullname" . }}
       annotations:
-{{ toYaml .Values.replica.annotations | indent 8 }}
+        cattle.io/timestamp: 2019-02-07T12:11:27Z
+      creationTimestamp: null
       labels:
-        app: {{ template "artemis-helm.name" . }}
-        release: {{ .Release.Name | quote }}
-        component: master
+        workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
     spec:
-      initContainers:
-      - name: configure-cluster
-        image: {{ template "artemis-helm.image" . }}
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
-        command:
-        - echo
-        - Dooo
-        - stuff...
       containers:
-      - name: {{ include "artemis-helm.fullname" . }}
-        image: {{ template "artemis-helm.image" . }}
-        imagePullPolicy: {{ .Values.image.imagePullPolicy | quote }}
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
-        env:
-        - name: ARTEMIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: {{ include "artemis-helm.fullname" . }}
-              key: artemis-password
-        - name: ARTEMIS_USERNAME
-          value: {{ default "artemis" .Values.artemisUser | quote }}
+      - image: docker.io/alpine:3.9
+        imagePullPolicy: Always
+        name: artemis-helm
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - command:
+        - echo
+        - Running
+        - the
+        - Init
+        - Container.....
+        image: docker.io/alpine:3.9
+        imagePullPolicy: Always
+        name: artemis-helm-init
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    type: RollingUpdate
