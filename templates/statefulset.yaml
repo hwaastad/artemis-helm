@@ -56,10 +56,6 @@ spec:
           procMount: Default
           readOnlyRootFilesystem: false
           runAsNonRoot: false
-        stdin: true
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        tty: true
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
