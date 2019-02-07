@@ -3,26 +3,27 @@ kind: StatefulSet
 metadata:
   annotations:
 {{ toYaml .Values.deployment.annotations | indent 4 }}
-  creationTimestamp: 2019-02-07T12:10:46Z
-  generation: 2
   labels:
 {{ include "artemis-helm.labels.standard" . | indent 4 }}
   name: {{ include "artemis-helm.fullname" . }}
 spec:
   podManagementPolicy: OrderedReady
-  replicas: 1
+  replicas: {{ .Values.replicas }}
+  podManagementPolicy: "Parallel"
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
-  serviceName: artemis-helm
+      app: {{ template "artemis-helm.name" . }}
+      release: {{ .Release.Name | quote }}
+  serviceName: {{ include "artemis-helm.fullname" . }}
   template:
     metadata:
       annotations:
         cattle.io/timestamp: 2019-02-07T12:11:27Z
       creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+        app: {{ template "artemis-helm.name" . }}
+        release: {{ .Release.Name | quote }}
     spec:
       containers:
       - image: docker.io/alpine:3.9
