@@ -1,7 +1,15 @@
 apiVersion: v1
 data:
-  configure-cluster.sh: echo I am configuring the client from configmap
-  artemis.xml: |-
+  configure-cluster.sh: |-
+    {{ $name := default .Chart.Name .Values.nameOverride }}
+    {{ $releaseName := printf "%s" .Release.Name | trunc 63 | trimSuffix "-" }}
+    MYNAME=$(echo ${HOSTNAME})
+    set -ax
+    echo Configuring $MYNAME
+    echo Copying common configuration
+    cp /opt/configure-common/template-common.xml /var/lib/artemis/etc-override/broker-10.xml
+
+  template-common.xml: |-
     <configuration xmlns="urn:activemq" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
           <core xmlns="urn:activemq:core" xsi:schemaLocation="urn:activemq:core ">
             <cluster-user>exampleUser</cluster-user>
