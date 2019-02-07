@@ -51,3 +51,13 @@ Create chart name and version as used by the chart label.
 {{- define "artemis-helm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Return the proper image values
+*/}}
+{{- define "artemis-helm.image" -}}
+{{- $registryName :=  .Values.image.registry -}}
+{{- $repositoryName := .Values.image.repository -}}
+{{- $tag := default .Chart.AppVersion .Values.image.tag | toString -}}
+{{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
+{{- end -}}
