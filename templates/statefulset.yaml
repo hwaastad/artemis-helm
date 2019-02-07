@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - image: docker.io/alpine:3.9
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        imagePullPolicy: Always
         name: artemis-helm
         resources: {}
         securityContext:
@@ -46,7 +46,7 @@ spec:
         - Init
         - Container.....
         image: docker.io/alpine:3.9
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        imagePullPolicy: Always
         name: artemis-helm-init
         resources: {}
         securityContext:
@@ -56,6 +56,9 @@ spec:
           procMount: Default
           readOnlyRootFilesystem: false
           runAsNonRoot: false
+      restartPolicy: Always
+      schedulerName: default-scheduler
       securityContext: {}
+      terminationGracePeriodSeconds: 30
   updateStrategy:
     type: RollingUpdate
