@@ -12,7 +12,7 @@ data:
             {{- $releaseNamespace := .Release.Namespace -}}
             <connectors>
               {{ range $i,$t := until (int .Values.replicas) }}
-              <connector name="{{ $fullname }}-{{ $i }}">tcp://{{ $fullname }}-{{ $i }}.{{ $releaseName }}.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
+              <connector name="{{ $fullname }}-{{ $i }}">tcp://{{ $fullname }}-{{ $i }}.{{ $fullname }}.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
               {{end}}
             </connectors>
             <cluster-connections>
