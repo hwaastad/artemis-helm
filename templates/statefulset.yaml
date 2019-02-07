@@ -57,3 +57,6 @@ spec:
           procMount: Default
           readOnlyRootFilesystem: false
           runAsNonRoot: false
+      securityContext: {}
+  updateStrategy:
+    type: RollingUpdate
