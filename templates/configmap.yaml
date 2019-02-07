@@ -8,11 +8,11 @@ data:
             <cluster-password>secret</cluster-password>
             {{- $name := default .Chart.Name .Values.nameOverride -}}
             {{- $fullname := include "artemis-helm.fullname" . -}}
-            {{- $releaseName := printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+            {{- $releaseName := printf "%s" .Release.Name | trunc 63 | trimSuffix "-" -}}
             {{- $releaseNamespace := .Release.Namespace -}}
             <connectors>
               {{ range $i,$t := until (int .Values.replicas) }}
-              <connector name="{{ $fullname }}-{{ . }}-{{ $i }}">tcp://{{ $fullname }}-{{ $i }}.{{ $releaseName }}.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
+              <connector name="{{ $fullname }}-{{ $i }}">tcp://{{ $fullname }}-{{ $i }}.{{ $releaseName }}.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
               {{end}}
             </connectors>
             <cluster-connections>
