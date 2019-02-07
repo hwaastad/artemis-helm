@@ -2,14 +2,13 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   annotations:
-    field.cattle.io/creatorId: user-rcwwb
+{{ toYaml .Values.deployment.annotations | indent 4 }}
   creationTimestamp: 2019-02-07T12:10:46Z
   generation: 2
   labels:
     cattle.io/creator: norman
     workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
-  name: artemis-helm
-  namespace: artemis-helm
+  name: {{ include "artemis-helm.fullname" . }}
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
