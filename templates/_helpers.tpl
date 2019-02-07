@@ -41,7 +41,7 @@ It does minimal escaping for use in Kubernetes labels.
 Example output:
 artemis-2.6.2
 */ -}}
-{{- define "artemis.chartref" -}}
+{{- define "artemis-helm.chartref" -}}
 {{- replace "+" "_" .Chart.Version | printf "%s-%s" .Chart.Name -}}
 {{- end -}}
 
