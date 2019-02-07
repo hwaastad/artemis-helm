@@ -60,3 +60,11 @@ spec:
           runAsNonRoot: false
         stdin: true
         tty: true
+        volumeMounts:
+        - mountPath: /opt/configure-common
+          name: configure-common
+      volumes:
+      - configMap:
+          name: {{ template "artemis-helm.name" . }}-configure
+          optional: false
+        name: configure-common
