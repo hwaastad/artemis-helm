@@ -31,6 +31,16 @@ spec:
         imagePullPolicy: Always
         name: artemis-helm
         resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
       dnsPolicy: ClusterFirst
       initContainers:
       - command:
@@ -43,6 +53,17 @@ spec:
         imagePullPolicy: Always
         name: artemis-helm-init
         resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
