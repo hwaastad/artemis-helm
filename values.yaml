@@ -8,7 +8,7 @@ image:
 #  registry: reg-proxy.daxdigital.net
 #  repository: server/apache-artemis
 #  tag: 2.6.3-k8s
-#  pullPolicy: Always
+  pullPolicy: Always
   registry: docker.io
   repository: alpine
   tag: 3.9
@@ -25,7 +25,7 @@ resources:
 replica:
   ## Artemis Replicas annotations
   annotations: {}
-  
+
 deployment:
   ## Artemis Deployment annotations
   annotations: {}
