@@ -7,7 +7,7 @@ data:
             <cluster-user>exampleUser</cluster-user>
             <cluster-password>secret</cluster-password>
             {{- $name := default .Chart.Name .Values.nameOverride -}}
-            {{- $fullname := include "artemis.fullname" . -}}
+            {{- $fullname := include "artemis-helm.fullname" . -}}
             {{- $releaseName := printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
             {{- $releaseNamespace := .Release.Namespace -}}
             <connectors>
