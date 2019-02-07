@@ -6,8 +6,7 @@ metadata:
   creationTimestamp: 2019-02-07T12:10:46Z
   generation: 2
   labels:
-    cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: statefulSet-artemis-helm-artemis-helm
+{{ include "artemis-helm.labels.standard" . | indent 4 }}
   name: {{ include "artemis-helm.fullname" . }}
 spec:
   podManagementPolicy: OrderedReady
