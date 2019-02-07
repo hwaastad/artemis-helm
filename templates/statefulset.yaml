@@ -47,7 +47,6 @@ spec:
         - Container.....
         image: docker.io/alpine:3.9
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
         resources: {}
         securityContext:
