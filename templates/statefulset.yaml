@@ -44,20 +44,3 @@ spec:
               key: artemis-password
         - name: ARTEMIS_USERNAME
           value: {{ default "artemis" .Values.artemisUser | quote }}
-        ports:
-        - name: http
-          containerPort: 8161
-        - name: core
-          containerPort: 61616
-        - name: amqp
-          containerPort: 5672
-        volumeMounts:
-        - name: data
-          mountPath: /var/lib/artemis/data
-        - name: config-override
-          mountPath: /var/lib/artemis/etc-override
-      volumes:
-      - name: config-override
-        emptyDir: {}
-      - name: data
-        emptyDir: {}
