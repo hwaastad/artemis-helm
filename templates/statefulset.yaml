@@ -7,6 +7,8 @@ metadata:
   creationTimestamp: 2019-02-07T12:10:46Z
   labels:
     {{ include "artemis-helm.labels.standard" . | indent 4 }}
+  name: artemis-helm
+  namespace: artemis-helm
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -28,7 +30,7 @@ spec:
       containers:
       - image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        name: {{ include "artemis-helm.fullname" . }}
+        name: artemis-helm
         resources: {}
         securityContext:
           allowPrivilegeEscalation: false
@@ -50,6 +52,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
+        resources: {}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: {}
