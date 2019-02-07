@@ -37,6 +37,8 @@ spec:
           procMount: Default
           readOnlyRootFilesystem: false
           runAsNonRoot: false
+        stdin: true
+        tty: true
       dnsPolicy: ClusterFirst
       initContainers:
       - command:
