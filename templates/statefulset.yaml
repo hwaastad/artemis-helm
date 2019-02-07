@@ -51,9 +51,6 @@ spec:
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
         resources: {}
-        volumeMounts:
-          - name: configure-common
-            mountPath: /opt/configure-common
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: {}
@@ -63,7 +60,3 @@ spec:
           runAsNonRoot: false
         stdin: true
         tty: true
-      volumes:
-        - name: configure-common
-        configMap:
-          name: {{ include "artemis-helm.fullname" . }}-configure
