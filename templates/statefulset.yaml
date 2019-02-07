@@ -51,16 +51,6 @@ spec:
           containerPort: 61616
         - name: amqp
           containerPort: 5672
-        livenessProbe:
-          tcpSocket:
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:
-          tcpSocket:
-            port: core
-          initialDelaySeconds: 10
-          periodSeconds: 10
         volumeMounts:
         - name: data
           mountPath: /var/lib/artemis/data
