@@ -17,7 +17,18 @@ artemisUser: artemis
 
 artemisPassword: artemis
 
-resources: {}
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+
+replica:
+  ## Artemis Replicas annotations
+  annotations: {}
+  
+deployment:
+  ## Artemis Deployment annotations
+  annotations: {}
 
 nodeSelector: {}
 
