@@ -38,6 +38,9 @@ spec:
           runAsNonRoot: false
         stdin: true
         tty: true
+        volumeMounts:
+        - mountPath: /opt/configure-common
+          name: configure-common
       dnsPolicy: ClusterFirst
       initContainers:
       - command:
