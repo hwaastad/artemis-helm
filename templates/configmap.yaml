@@ -3,7 +3,7 @@ data:
   configure-cluster.sh: echo I am configuring the client from configmap
 kind: ConfigMap
 metadata:
-  name: {{ include "artemis.fullname" . }}-configure
+  name: {{ include "artemis-helm.fullname" . }}-configure
   creationTimestamp: 2019-02-06T19:03:58Z
   labels:
     cattle.io/creator: norman
