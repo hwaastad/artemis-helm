@@ -60,9 +60,3 @@ spec:
           runAsNonRoot: false
         stdin: true
         tty: true
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  updateStrategy:
-    type: RollingUpdate
