@@ -5,10 +5,13 @@
 replicaCount: 2
 
 image:
-  registry: reg-proxy.daxdigital.net
-  repository: server/apache-artemis
-  tag: 2.6.3-k8s
-  pullPolicy: Always
+#  registry: reg-proxy.daxdigital.net
+#  repository: server/apache-artemis
+#  tag: 2.6.3-k8s
+#  pullPolicy: Always
+  registry: docker.io
+  repository: alpine
+  tag: 3.9
 
 artemisUser: artemis
 
