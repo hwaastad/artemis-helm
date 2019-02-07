@@ -28,8 +28,9 @@ spec:
       containers:
       - image: {{ template "artemis-helm.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        name: artemis-helm
-        resources: {}
+        name: {{ include "artemis-helm.fullname" . }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
@@ -50,8 +51,6 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         imagePullSecrets: {{ toYaml .Values.image.pullSecrets }}
         name: artemis-helm-init
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: {}
