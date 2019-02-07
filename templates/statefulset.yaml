@@ -56,6 +56,8 @@ spec:
           procMount: Default
           readOnlyRootFilesystem: false
           runAsNonRoot: false
+        stdin: true
+        tty: true
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
